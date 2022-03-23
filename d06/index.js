@@ -3,6 +3,7 @@ require('./pkg/db');
 
 const express = require('express');
 const jwt = require('express-jwt');
+const auth = require('./handlers/auth');
 const blogposts = require('./handlers/blogposts');
 
 const api = express();
@@ -11,7 +12,16 @@ api.use(express.json());
 api.use(jwt({
     secret: config.get('service').jwt_key,
     algorithms: ['HS256']
+}).unless({
+    path: [
+        '/api/v1/auth/login',
+        '/api/v1/auth/register'
+    ]
 }));
+
+api.post('/api/v1/auth/login', auth.login);
+api.post('/api/v1/auth/register', auth.register);
+api.get('/api/v1/auth/refresh-token', auth.refreshToken);
 
 api.get('/api/v1/auth/blogpost', blogposts.getAll);
 api.get('/api/v1/auth/blogpost', blogposts.getSingle);
