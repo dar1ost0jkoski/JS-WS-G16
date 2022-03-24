@@ -1,4 +1,3 @@
-const { isRegExp } = require('util/types');
 const blogposts = require('../pkg/blog');
 const {
     Blogpost,
