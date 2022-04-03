@@ -2,8 +2,9 @@ const files = require('../files');
 const DATA_SOURCE = `${__dirname}/../../data`;
 
 const getAllShows = async () => {
-    try {let data = await files.readData(DATA_SOURCE);
-    return data;
+    try { 
+        let data = await files.readData(DATA_SOURCE);
+        return data;
     } catch (error) {
         throw error;
     }
